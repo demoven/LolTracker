@@ -1,5 +1,5 @@
-<form class="horizontal">
-    <select id="region" class="research" name="region" required>
+<form (ngSubmit)="submit()" [formGroup]="searchForm" class="horizontal">
+    <select [formControl]="regionCtrl" id="region" class="research" name="region" required>
         <option value="" disabled selected>Server region</option>
         <option value="BR1">BR</option>
         <option value="EUW1">EUW</option>
@@ -18,7 +18,7 @@
         <option value="TW2">LA1</option>
         <option value="VN2">LA1</option>
     </select>
-        <input class="research" type="text" placeholder="Summoner's name">
-    <button class="research"> rechercher</button>
-    </form>
-    
+    <input [formControl]="summonerNameCtrl" class="research" type="text" placeholder="Summoner's name" name="SummonerID"
+        required>
+    <button  class="research"> rechercher</button>
+</form>

@@ -25,26 +25,27 @@ export class SummonerDetailsComponent implements OnInit {
       this.region = params.get('region') ?? ''
       const match = RegExp(/^(.*)#(\w{3,5})$/).exec(fullSummonerName);
       if (match) {
-        this.summonerName = match[1]; // Partie avant le dernier #
-        this.tagLine = match[2]; // Partie après le dernier #
+        this.summonerName = match[1]; 
+        this.tagLine = match[2]; 
       } else {
-        this.summonerName = fullSummonerName; // Si pas de match, garder tel quel
+        this.summonerName = fullSummonerName; 
         this.tagLine = '';
       }
+
+      this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase()).pipe(
+        switchMap((response: Account) => {
+          this.account = response;
+          console.log('Account:', this.account);
+          return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 100);
+        })
+      ).subscribe((games: any[]) => {
+        console.log('Games:', games);
+      }
+      );
+      this.dataService.getDetailedMatchById('EUW1_7347621573').subscribe((matchDetails: any) => {
+        console.log('Match Details:', matchDetails);
+      });
     });
 
-    this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase()).pipe(
-      switchMap((response: Account) => {
-        this.account = response;
-        console.log('Account:', this.account);
-        return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 100);
-      })
-    ).subscribe((games: any[]) => {
-      console.log('Games:', games);
-    }
-    );
-    this.dataService.getDetailedMatchById('EUW1_7347621573').subscribe((matchDetails: any) => {
-      console.log('Match Details:', matchDetails);
-    });
   }
 }

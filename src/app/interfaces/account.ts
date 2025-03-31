@@ -3,7 +3,5 @@ export interface Account {
     tagLine: string;
     puuid: string;
     profileIconId: number;
-    revisionDate: number;
     summonerLevel: number;
-    id: string;
 }

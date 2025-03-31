@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Account } from '../interfaces/account';
 import { DataService } from '../data.service';
 import { switchMap } from 'rxjs';
+import { Game } from '../interfaces/game';
 
 @Component({
   selector: 'app-summoner-details',
@@ -18,6 +19,7 @@ export class SummonerDetailsComponent implements OnInit {
   route = inject(ActivatedRoute)
   dataService = inject(DataService);
   account!: Account;
+  game!: Game;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -36,14 +38,16 @@ export class SummonerDetailsComponent implements OnInit {
         switchMap((response: Account) => {
           this.account = response;
           console.log('Account:', this.account);
-          return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 100);
+          return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 5);
         })
       ).subscribe((games: any[]) => {
         console.log('Games:', games);
       }
       );
-      this.dataService.getDetailedMatchById('EUW1_7347621573').subscribe((matchDetails: any) => {
+      this.dataService.getDetailedMatchById('EUW1_7352476040').subscribe((matchDetails: any) => {
         console.log('Match Details:', matchDetails);
+        this.game = matchDetails;
+        console.log('Game:', this.game);
       });
     });
 

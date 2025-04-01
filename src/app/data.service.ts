@@ -42,10 +42,7 @@ export class DataService {
         mergeMap((ids: any[]) => from(ids)),
         concatMap((id: any) => this.getDetailedMatchById(id)),
         toArray(),
-        tap((games: Game[]) => {
-          console.log('Games dans le tap:', games);
-        }
-      ));
+      );
   }
 
   getDetailedMatchById(matchId: string): Observable<Game> {

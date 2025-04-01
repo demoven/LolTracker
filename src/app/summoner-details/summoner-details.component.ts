@@ -26,7 +26,6 @@ export class SummonerDetailsComponent implements OnInit {
     profileIconId: 0,
     summonerLevel: 0
   };
-  game!: Game;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {

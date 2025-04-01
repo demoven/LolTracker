@@ -20,7 +20,6 @@ ngOnInit(): void {
     this.dataService.getListOfGamesByPuuid('lpbSuYib5rERTDS8Q3kyK4gNN013_nwZqPvRbaNeQJdoNNbmwv4hFLkX6uWDg9oLREjUsgAAUYXgWw', 0, 5).subscribe(
       (data:Game[]) =>{ 
         this.gameList = data
-       console.log('GameListType:', this.gameList)
       }
     )
 }

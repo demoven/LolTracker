@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { concatMap, from, map, mergeMap, Observable, tap, toArray } from 'rxjs';
 import { Account } from './interfaces/account';
 import { Game } from './interfaces/game';
+import { Rank } from './interfaces/rank';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class DataService {
   constructor() { }
 
   getAccountByGameNameAndTagLine(gameName: string, tagLine: string, region: string): Observable<Account> {
-    return this.httpClient.get<any>(`${this.url}riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${this.apiKey}`)
+    return this.httpClient.get<any>(`${this.getAPIUrl(region)}riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${this.apiKey}`)
       .pipe(
         mergeMap((response: any) => {
           const puuid = response.puuid;
@@ -36,17 +37,38 @@ export class DataService {
       );
   }
 
-  getListOfGamesByPuuid(puuid: string, start: number, count: number): Observable<Game[]> {
-    return this.httpClient.get<any[]>(`${this.url}lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}&api_key=${this.apiKey}`)
+  getListOfGamesByPuuid(puuid: string, start: number, count: number, region:string): Observable<Game[]> {
+    return this.httpClient.get<any[]>(`${this.getAPIUrl(region)}lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}&api_key=${this.apiKey}`)
       .pipe(
         mergeMap((ids: any[]) => from(ids)),
-        concatMap((id: any) => this.getDetailedMatchById(id)),
+        concatMap((id: any) => this.getDetailedMatchById(id, region)),
         toArray(),
       );
   }
 
-  getDetailedMatchById(matchId: string): Observable<Game> {
-    return this.httpClient.get<any>(`${this.url}lol/match/v5/matches/${matchId}?api_key=${this.apiKey}`).pipe(
+  getRank(puuid: string, region: string): Observable<Rank[]> {
+    return this.httpClient.get<Rank[]>(`https://${region}.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}?api_key=${this.apiKey}`).pipe(
+      map((response: any) => {
+        return response.map((rank: any) => {
+          return {
+            queueType: rank.queueType,
+            tier: rank.tier,
+            rank: rank.rank,
+            leaguePoints: rank.leaguePoints,
+            wins: rank.wins,
+            losses: rank.losses,
+            veteran: rank.veteran,
+            inactive: rank.inactive,
+            freshBlood: rank.freshBlood,
+            hotStreak: rank.hotStreak
+          };
+        });
+      }),
+    )
+  }
+
+  getDetailedMatchById(matchId: string, region:string): Observable<Game> {
+    return this.httpClient.get<any>(`${this.getAPIUrl(region)}lol/match/v5/matches/${matchId}?api_key=${this.apiKey}`).pipe(
       map((response: any) => {
         const participants = response.info.participants.map((participant: any) => {
           const account: Account = {
@@ -154,4 +176,63 @@ export class DataService {
     );
 
   }
+
+  getAPIUrl(region: string): string {
+    let selectedRegion = '';
+    switch (region.toLowerCase()) {
+      case 'br1':
+        selectedRegion = 'americas'
+        break;
+      case 'eun1':
+        selectedRegion = 'europe'
+        break;
+      case 'euw1':
+        selectedRegion = 'europe'
+        break;
+      case 'jp1':
+        selectedRegion = 'asia'
+        break;
+      case 'kr':
+        selectedRegion = 'asia'
+        break;
+      case 'la1':
+        selectedRegion = 'americas'
+        break;
+      case 'la2':
+        selectedRegion = 'americas'
+        break;
+      case 'na1':
+        selectedRegion = 'americas'
+        break;
+      case 'oc1':
+        selectedRegion = 'americas'
+        break;
+      case 'tr1':
+        selectedRegion = 'europe'
+        break;
+      case 'ru':
+        selectedRegion = 'europe'
+        break;
+      case 'ph2':
+        selectedRegion = 'asia'
+        break;
+      case 'sg2':
+        selectedRegion = 'asia'
+        break;
+      case 'th2':
+        selectedRegion = 'asia'
+        break;
+      case 'tw2':
+        selectedRegion = 'asia'
+        break;
+      case 'vn2':
+        selectedRegion = 'asia'
+        break;
+      default:
+        selectedRegion = 'americas'
+        break;
+    }
+    return `https://${selectedRegion}.api.riotgames.com/`;
+  }
+
 }

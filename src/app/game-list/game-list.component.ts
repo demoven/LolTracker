@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit,} from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
 import { Game } from '../interfaces/game';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
@@ -11,19 +11,33 @@ import { Router } from '@angular/router';
   templateUrl: './game-list.component.html',
   styleUrl: './game-list.component.css'
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent implements OnInit, OnChanges {
 @Input() puuId:string =''
+@Input() region:string =''
 gameList:Game[] = []
 dataService = inject(DataService)
 index=0
+
+constructor(){}
+
 ngOnInit(): void {
-    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 1).subscribe(
+    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 1, this.region).subscribe(
       (data:Game[]) =>{ 
         this.gameList = data
       }
     )
 }
-constructor(){}
 
-
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['puuId']){
+      console.log('PuuId changed:', changes['puuId'].currentValue);
+      this.puuId = changes['puuId'].currentValue
+      this.gameList = [] 
+      this.dataService.getListOfGamesByPuuid(this.puuId, 0, 1, this.region).subscribe(
+        (data:Game[]) =>{ 
+          this.gameList = data
+        }
+      )
+    }
+  }
 }

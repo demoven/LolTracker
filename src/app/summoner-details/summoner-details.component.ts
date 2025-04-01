@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Account } from '../interfaces/account';
 import { DataService } from '../data.service';
-import { switchMap } from 'rxjs';
+import { mergeMap, switchMap } from 'rxjs';
 import { Game } from '../interfaces/game';
 import { GameListComponent } from '../game-list/game-list.component';
 
@@ -19,7 +19,13 @@ export class SummonerDetailsComponent implements OnInit {
   router = inject(Router)
   route = inject(ActivatedRoute)
   dataService = inject(DataService);
-  account!: Account;
+  account: Account = {
+    gameName: '',
+    tagLine: '',
+    puuid: '',
+    profileIconId: 0,
+    summonerLevel: 0
+  };
   game!: Game;
 
   ngOnInit(): void {
@@ -36,19 +42,15 @@ export class SummonerDetailsComponent implements OnInit {
       }
 
       this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase()).pipe(
-        switchMap((response: Account) => {
+        mergeMap((response: Account) => {
           this.account = response;
           console.log('Account:', this.account);
           return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 5);
         })
-      ).subscribe((games: any[]) => {
+      ).subscribe((games: Game[]) => {
         console.log('Games list trop bien:', games);
       }
       );
-      this.dataService.getDetailedMatchById('EUW1_7352476040').subscribe((matchDetails: any) => {
-        this.game = matchDetails;
-      
-      });
     });
 
   }

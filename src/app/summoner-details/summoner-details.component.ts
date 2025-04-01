@@ -4,10 +4,11 @@ import { Account } from '../interfaces/account';
 import { DataService } from '../data.service';
 import { switchMap } from 'rxjs';
 import { Game } from '../interfaces/game';
+import { GameListComponent } from '../game-list/game-list.component';
 
 @Component({
   selector: 'app-summoner-details',
-  imports: [],
+  imports: [GameListComponent],
   templateUrl: './summoner-details.component.html',
   styleUrl: './summoner-details.component.css'
 })
@@ -45,9 +46,8 @@ export class SummonerDetailsComponent implements OnInit {
       }
       );
       this.dataService.getDetailedMatchById('EUW1_7352476040').subscribe((matchDetails: any) => {
-        console.log('Match Details:', matchDetails);
         this.game = matchDetails;
-        console.log('Game:', this.game);
+      
       });
     });
 

@@ -3,8 +3,10 @@
         @for(participant of game.participants ; track $index){
     <div style="display: flex; align-items: center;">
         <img [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`" alt="Champion Icon">
-        <p>{{participant.account.gameName}} playing {{participant.championName}}</p>
+        <div [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]"  >{{participant.account.gameName}}   </div>
+           <p>playing {{participant.championName}}</p>
     </div>
         }
     </div>
+
 }

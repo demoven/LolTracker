@@ -12,17 +12,18 @@ import { GamePreviewComponent } from '../game-preview/game-preview.component';
 })
 export class GameListComponent implements OnInit {
 @Input() puuId:string =''
-gameList:Array<Game>=[]
+gameList:Game[] = []
 dataService = inject(DataService)
 index=0
 ngOnInit(): void {
     console.log(this.puuId)
     this.dataService.getListOfGamesByPuuid('lpbSuYib5rERTDS8Q3kyK4gNN013_nwZqPvRbaNeQJdoNNbmwv4hFLkX6uWDg9oLREjUsgAAUYXgWw', 0, 5).subscribe(
-      data => this.gameList= data
+      (data:Game[]) =>{ 
+        this.gameList = data
+       console.log('GameListType:', this.gameList)
+      }
     )
 }
-constructor(){
-
-}
+constructor(){}
 
 }

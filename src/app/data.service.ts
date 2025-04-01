@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { concatMap, from, map, mergeMap, Observable, toArray } from 'rxjs';
+import { concatMap, from, map, mergeMap, Observable, tap, toArray } from 'rxjs';
 import { Account } from './interfaces/account';
 import { Game } from './interfaces/game';
 
@@ -36,13 +36,16 @@ export class DataService {
       );
   }
 
-  getListOfGamesByPuuid(puuid: string, start: number, count: number): Observable<any[]> {
+  getListOfGamesByPuuid(puuid: string, start: number, count: number): Observable<Game[]> {
     return this.httpClient.get<any[]>(`${this.url}lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}&api_key=${this.apiKey}`)
       .pipe(
         mergeMap((ids: any[]) => from(ids)),
         concatMap((id: any) => this.getDetailedMatchById(id)),
         toArray(),
-      );
+        tap((games: Game[]) => {
+          console.log('Games dans le tap:', games);
+        }
+      ));
   }
 
   getDetailedMatchById(matchId: string): Observable<Game> {

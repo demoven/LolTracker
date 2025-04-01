@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Game } from '../interfaces/game';
 
 @Component({
@@ -7,16 +7,17 @@ import { Game } from '../interfaces/game';
   templateUrl: './game-preview.component.html',
   styleUrl: './game-preview.component.css'
 })
-export class GamePreviewComponent {
+export class GamePreviewComponent implements OnInit {
   @Input() game!:Game
   @Input() puuid!:string
-parsedGameVersion:string
-championPlayedByPlayer:string
+parsedGameVersion!:string
+championPlayedByPlayer!:string
 
-constructor(){
-  this.parsedGameVersion=this.getGameVersion(this.game)
-  this.championPlayedByPlayer=this.getPlayedChampion(this.game, this.puuid)
-}
+constructor(){}
+  ngOnInit(): void {
+    this.parsedGameVersion=this.getGameVersion(this.game)
+    this.championPlayedByPlayer=this.getPlayedChampion(this.game, this.puuid)
+  }
 
 getGameVersion(game:Game){
   const parts = game.gameVersion.split('.');

@@ -41,7 +41,7 @@ export class SummonerDetailsComponent implements OnInit {
           return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 5);
         })
       ).subscribe((games: any[]) => {
-        console.log('Games:', games);
+        console.log('Games list trop bien:', games);
       }
       );
       this.dataService.getDetailedMatchById('EUW1_7352476040').subscribe((matchDetails: any) => {

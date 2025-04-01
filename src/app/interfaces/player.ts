@@ -5,6 +5,7 @@ export interface Player {
     assists: number;
     champLevel: number;
     championId: number; //Récupérer les données des champions
+    championName: string; //Récupérer les données des champions
     damageDealtToBuildings: number;
     damageDealtToObjectives: number;
     damageDealtToTurrets: number;
@@ -13,6 +14,7 @@ export interface Player {
     doubleKills: number;
     tripleKills: number;
     quadraKills: number;
+    pentaKills: number;
     firstBloodKill: boolean;
     firstTowerKill: boolean;
     goldEarned: number;

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { forkJoin, map, Observable, switchMap, tap } from 'rxjs';
+import { concatMap, forkJoin, map, Observable, of, switchMap, tap, toArray } from 'rxjs';
 import { Account } from './interfaces/account';
 import { Game } from './interfaces/game';
 
@@ -10,7 +10,7 @@ import { Game } from './interfaces/game';
 export class DataService {
 
   httpClient = inject(HttpClient);
-  apiKey = 'RGAPI-8a2ed497-015b-4ad1-baaa-da04b67d9246';
+  apiKey = 'RGAPI-dc351950-82c7-4c7d-a2c1-0df013fdf186';
   url = 'https://europe.api.riotgames.com/';
 
   constructor() { }
@@ -36,14 +36,18 @@ export class DataService {
         ));
   }
 
-  getListOfGamesByPuuid(puuid: string, start: number, count: number): Observable<Game[]> {
+  getListOfGamesByPuuid(puuid: string, start: number, count: number): Observable<any[]> {
     return this.httpClient.get<any[]>(`${this.url}lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}&api_key=${this.apiKey}`).pipe(
       tap((matchIds: string[]) => {
         console.log('Match IDs:', matchIds);
       }),
       switchMap((matchIds: string[]) => {
-        return forkJoin(matchIds.map((matchId: string) => this.getDetailedMatchById(matchId)));
-      })
+        // return forkJoin(matchIds.map((matchId: string) => this.getDetailedMatchById(matchId)));
+        return of(matchIds).pipe(
+          concatMap((matchIdList: string[]) => matchIdList), 
+          concatMap((matchId: string) => this.getDetailedMatchById(matchId)), 
+          toArray() 
+      )})
     );
   }
 
@@ -63,6 +67,7 @@ export class DataService {
             assists: participant.assists,
             champLevel: participant.champLevel,
             championId: participant.championId,
+            championName: participant.championName,
             damageDealtToBuildings: participant.damageDealtToBuildings,
             damageDealtToObjectives: participant.damageDealtToObjectives,
             damageDealtToTurrets: participant.damageDealtToTurrets,
@@ -71,6 +76,7 @@ export class DataService {
             doubleKills: participant.doubleKills,
             tripleKills: participant.tripleKills,
             quadraKills: participant.quadraKills,
+            pentaKills: participant.pentaKills,
             firstBloodKill: participant.firstBloodKill,
             firstTowerKill: participant.firstTowerKill,
             goldEarned: participant.goldEarned,
@@ -142,6 +148,7 @@ export class DataService {
           endOfGameResult: response.info.gameEndTimestamp,
           gameCreation: response.info.gameCreation,
           gameDuration: response.info.gameDuration,
+          gameVersion: response.info.gameVersion,
           matchId: response.metadata.matchId,
           gameMode: response.info.gameMode,
           mapId: response.info.mapId,

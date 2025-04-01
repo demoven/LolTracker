@@ -5,6 +5,7 @@ export interface Game {
     endOfGameResult: string;
     gameCreation: number;
     gameDuration: number;
+    gameVersion: string;
     matchId: number;
     gameMode: string;
     mapId: number;

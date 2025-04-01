@@ -1,7 +1,8 @@
 @if(game!==null){
     <div>
         @for(participant of game.participants ; track $index){
-    <div>
+    <div style="display: flex; align-items: center;">
+        <img [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`" alt="Champion Icon">
         <p>{{participant.account.gameName}} playing {{participant.championName}}</p>
     </div>
         }

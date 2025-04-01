@@ -6,5 +6,5 @@ import { GameDetailsComponent } from './game-details/game-details.component';
 export const routes: Routes = [
     {path: 'summoner/:region/:summonerName', component:SummonerDetailsComponent},
     {path: 'about', component: AboutComponent },
-    {path: 'game/detail/:gameId', component:GameDetailsComponent}
+    {path: 'game/detail/:gameVersion/:gameId', component:GameDetailsComponent}
 ];

@@ -42,7 +42,7 @@ getPlayedParticipant(game: Game, id: string) {
 }
 
   submit(){
-    this.router.navigate(['/game/detail/',this.game.matchId])
+    this.router.navigate(['/game/detail/', this.parsedGameVersion,this.game.matchId])
   }
 
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { concatMap, forkJoin, map, Observable, of, switchMap, tap, toArray } from 'rxjs';
+import { concatMap, from, map, mergeMap, Observable, toArray } from 'rxjs';
 import { Account } from './interfaces/account';
 import { Game } from './interfaces/game';
 
@@ -18,7 +18,7 @@ export class DataService {
   getAccountByGameNameAndTagLine(gameName: string, tagLine: string, region: string): Observable<Account> {
     return this.httpClient.get<any>(`${this.url}riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${this.apiKey}`)
       .pipe(
-        switchMap((response: any) => {
+        mergeMap((response: any) => {
           const puuid = response.puuid;
           return this.httpClient.get<any>(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${this.apiKey}`)
             .pipe(
@@ -29,26 +29,20 @@ export class DataService {
                   puuid: el.puuid,
                   profileIconId: el.profileIconId,
                   summonerLevel: el.summonerLevel
-                }
+                };
               })
             );
-        }
-        ));
+        })
+      );
   }
 
   getListOfGamesByPuuid(puuid: string, start: number, count: number): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.url}lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}&api_key=${this.apiKey}`).pipe(
-      tap((matchIds: string[]) => {
-        console.log('Match IDs:', matchIds);
-      }),
-      switchMap((matchIds: string[]) => {
-        // return forkJoin(matchIds.map((matchId: string) => this.getDetailedMatchById(matchId)));
-        return of(matchIds).pipe(
-          concatMap((matchIdList: string[]) => matchIdList), 
-          concatMap((matchId: string) => this.getDetailedMatchById(matchId)), 
-          toArray() 
-      )})
-    );
+    return this.httpClient.get<any[]>(`${this.url}lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}&api_key=${this.apiKey}`)
+      .pipe(
+        mergeMap((ids: any[]) => from(ids)),
+        concatMap((id: any) => this.getDetailedMatchById(id)),
+        toArray(),
+      );
   }
 
   getDetailedMatchById(matchId: string): Observable<Game> {

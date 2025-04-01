@@ -1,3 +1,5 @@
 <p>{{ summonerName }} and {{ tagLine }} and {{ region }}</p>
+@if(account!==null){
 <img [src]="'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/profileicon/' + account.profileIconId + '.png'" alt="Profile Icon">
-<app-game-list [puuId]="account.puuid"></app-game-list>
+    <app-game-list [puuId]="account.puuid"></app-game-list>
+}

@@ -19,13 +19,8 @@ export class SummonerDetailsComponent implements OnInit {
   router = inject(Router)
   route = inject(ActivatedRoute)
   dataService = inject(DataService);
-  account: Account = {
-    gameName: '',
-    tagLine: '',
-    puuid: '',
-    profileIconId: 0,
-    summonerLevel: 0
-  };
+  account: Account | null = null;
+  fini = false;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -47,10 +42,11 @@ export class SummonerDetailsComponent implements OnInit {
           return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 5);
         })
       ).subscribe((games: Game[]) => {
+        this.fini=true;
         console.log('Games list trop bien:', games);
       }
       );
     });
-
+    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXX');
   }
 }

@@ -16,8 +16,7 @@ gameList:Game[] = []
 dataService = inject(DataService)
 index=0
 ngOnInit(): void {
-    console.log(this.puuId)
-    this.dataService.getListOfGamesByPuuid('lpbSuYib5rERTDS8Q3kyK4gNN013_nwZqPvRbaNeQJdoNNbmwv4hFLkX6uWDg9oLREjUsgAAUYXgWw', 0, 5).subscribe(
+    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5).subscribe(
       (data:Game[]) =>{ 
         this.gameList = data
       }

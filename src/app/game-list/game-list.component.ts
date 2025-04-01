@@ -3,6 +3,7 @@ import { Game } from '../interfaces/game';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import { GamePreviewComponent } from '../game-preview/game-preview.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-list',
@@ -16,12 +17,13 @@ gameList:Game[] = []
 dataService = inject(DataService)
 index=0
 ngOnInit(): void {
-    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5).subscribe(
+    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 1).subscribe(
       (data:Game[]) =>{ 
         this.gameList = data
       }
     )
 }
 constructor(){}
+
 
 }

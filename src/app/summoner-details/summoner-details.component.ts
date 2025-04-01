@@ -34,12 +34,10 @@ export class SummonerDetailsComponent implements OnInit {
         this.tagLine = '';
       }
 
-      this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase()).pipe(
-        mergeMap((response: Account) => {
-          this.account = response;
-          return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 5);
-        })
-      ).subscribe();
+      this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase())
+      .subscribe((response: Account) => {
+        this.account = response;
+      });
     });
   }
 }

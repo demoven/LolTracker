@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Game } from '../interfaces/game';
 import { Player } from '../interfaces/player';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-preview',
@@ -9,6 +10,7 @@ import { Player } from '../interfaces/player';
   styleUrl: './game-preview.component.css'
 })
 export class GamePreviewComponent implements OnInit {
+  router = inject(Router)
   @Input() game!:Game
   @Input() puuid!:string
 parsedGameVersion!:string
@@ -38,6 +40,10 @@ getPlayedParticipant(game: Game, id: string) {
   const participant = game.participants.find(element => element.account.puuid === id);
   return participant ? participant : null;
 }
+
+  submit(){
+    this.router.navigate(['/game/detail/',this.game.matchId])
+  }
 
 }
 

@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center;">
     <img [src]="'https://ddragon.leagueoflegends.com/cdn/'+parsedGameVersion+'/img/champion/' + championPlayedByPlayer + '.png'" alt="Champion Icon">
     <p>{{championPlayedByPlayer}}   {{player?.kills}} /{{player?.deaths}} /{{player?.assists}}</p>
-    <button>details</button>
+    <button (click)="submit()">details</button>
 </div>

@@ -1,0 +1,9 @@
+@if(game!==null){
+    <div>
+        @for(participant of game.participants ; track $index){
+    <div>
+        <p>{{participant.account.gameName}} playing {{participant.championName}}</p>
+    </div>
+        }
+    </div>
+}

@@ -20,7 +20,6 @@ export class SummonerDetailsComponent implements OnInit {
   route = inject(ActivatedRoute)
   dataService = inject(DataService);
   account: Account | null = null;
-  fini = false;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -38,15 +37,9 @@ export class SummonerDetailsComponent implements OnInit {
       this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase()).pipe(
         mergeMap((response: Account) => {
           this.account = response;
-          console.log('Account:', this.account);
           return this.dataService.getListOfGamesByPuuid(this.account.puuid, 0, 5);
         })
-      ).subscribe((games: Game[]) => {
-        this.fini=true;
-        console.log('Games list trop bien:', games);
-      }
-      );
+      ).subscribe();
     });
-    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXX');
   }
 }

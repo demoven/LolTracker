@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Game } from '../interfaces/game';
+import { Player } from '../interfaces/player';
 
 @Component({
   selector: 'app-game-preview',
@@ -12,11 +13,13 @@ export class GamePreviewComponent implements OnInit {
   @Input() puuid!:string
 parsedGameVersion!:string
 championPlayedByPlayer!:string
+player:Player | null=null
 
 constructor(){}
   ngOnInit(): void {
     this.parsedGameVersion=this.getGameVersion(this.game)
     this.championPlayedByPlayer=this.getPlayedChampion(this.game, this.puuid)
+    this.player=this.getPlayedParticipant(this.game,this.puuid)
   }
 
 getGameVersion(game:Game){
@@ -27,15 +30,14 @@ getGameVersion(game:Game){
     return `${parts[0]}.${parts[1]}.1`; 
 }
 
-getPlayedChampion(game:Game, id:string):string{
-  var p:string=''
-  game.participants.forEach(element => {
-    if(element.account.puuid===id){
-      p=element.championName
-    }
-  })
-  return p
-
+getPlayedChampion(game:Game, id:string) {
+  const participant = game.participants.find(element => element.account.puuid === id);
+  return participant ? participant.championName : ''; 
 }
+getPlayedParticipant(game: Game, id: string) {
+  const participant = game.participants.find(element => element.account.puuid === id);
+  return participant ? participant : null;
+}
+
 }
 

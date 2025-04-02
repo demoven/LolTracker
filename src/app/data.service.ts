@@ -11,7 +11,7 @@ import { Rank } from './interfaces/rank';
 export class DataService {
 
   httpClient = inject(HttpClient);
-  apiKey = 'RGAPI-dc351950-82c7-4c7d-a2c1-0df013fdf186';
+  apiKey = 'RGAPI-41c97105-a618-4a4a-85d9-a550ab8ea9bd';
   url = 'https://europe.api.riotgames.com/';
 
   constructor() { }
@@ -29,7 +29,7 @@ export class DataService {
                   tagLine: response.tagLine,
                   puuid: el.puuid,
                   profileIconId: el.profileIconId,
-                  summonerLevel: el.summonerLevel
+                  summonerLevel: el.summonerLevel   
                 };
               })
             );

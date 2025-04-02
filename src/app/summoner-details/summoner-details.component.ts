@@ -5,6 +5,7 @@ import { DataService } from '../data.service';
 import { mergeMap, switchMap } from 'rxjs';
 import { Game } from '../interfaces/game';
 import { GameListComponent } from '../game-list/game-list.component';
+import { Rank } from '../interfaces/rank';
 
 @Component({
   selector: 'app-summoner-details',
@@ -20,6 +21,7 @@ export class SummonerDetailsComponent implements OnInit {
   route = inject(ActivatedRoute)
   dataService = inject(DataService);
   account: Account | null = null;
+  rank!:Rank
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -34,10 +36,17 @@ export class SummonerDetailsComponent implements OnInit {
         this.tagLine = '';
       }
 
-      this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase())
-      .subscribe((response: Account) => {
-        this.account = response;
+      this.dataService.getAccountByGameNameAndTagLine(this.summonerName, this.tagLine, this.region.toLowerCase()).pipe(
+        mergeMap((response: Account) => {
+          this.account = response;
+          return this.dataService.getRank(this.account.puuid, this.region)
+        })
+      )
+      .subscribe((rank: Rank[]) => {
+        if(this.account!==null)
+        this.account.rank = rank
       });
+      
     });
   }
 }

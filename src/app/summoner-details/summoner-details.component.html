@@ -1,5 +1,13 @@
+
 <p>{{ summonerName }} and {{ tagLine }} and {{ region }}</p>
 @if(account!==null && region !== ''){
-<img [src]="'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/profileicon/' + account.profileIconId + '.png'" alt="Profile Icon">
-    <app-game-list [puuId]="account.puuid" [region]="region"></app-game-list>
+    <div style="display: flex; align-items: center;">
+<img [src]="'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/profileicon/' + account.profileIconId + '.png'" alt="Profile Icon" width="90" height="90" >
+@if (account.rank) {
+    @for (queue of account.rank; track $index) {
+    <div>{{queue.tier}} {{queue.rank}} {{queue.queueType}} </div>
+}}
+      
+</div>
+<app-game-list [puuId]="account.puuid"></app-game-list>
 }

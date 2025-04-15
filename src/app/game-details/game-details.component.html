@@ -1,12 +1,25 @@
 @if(game!==null){
-    <div>
-        @for(participant of game.participants ; track $index){
-    <div style="display: flex; align-items: center;">
-        <img [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`" alt="Champion Icon">
-        <div [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]"  >{{participant.account.gameName}}   </div>
-           <p>playing {{participant.championName}}</p>
-    </div>
+<div id="gameMode">
+    {{game.gameMode}}
+</div>
+<div class="team-container">
+    @for(teamId of (getTeam()); track $index){
+    <div class="team">
+        @for(participant of getListPlayerByTeamId(teamId) ; track $index){
+        <div class="player-card">
+            <div>{{participant.championName}}</div>
+            <img [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`"
+                alt="Champion Icon" width="90px" height="90px">
+            <div>
+                {{teamId}}
+            </div>
+            <div [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]">
+                {{participant.account.gameName}} </div>
+
+        </div>
+    
         }
     </div>
-
 }
+</div>
+    }

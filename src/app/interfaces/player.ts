@@ -42,6 +42,7 @@ export interface Player {
     playerAugment5: number;
     playerAugment6: number;
     playerSubteamId: number;
+    playerteamId:number;
     summoner1Id: number;
     summoner2Id: number;
     timeCCingOthers:number;

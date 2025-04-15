@@ -11,7 +11,7 @@ import { Rank } from './interfaces/rank';
 export class DataService {
 
   httpClient = inject(HttpClient);
-  apiKey = 'RGAPI-41c97105-a618-4a4a-85d9-a550ab8ea9bd';
+  apiKey = 'RGAPI-52c9a4c3-bf1b-40e6-93e3-ee828f37bbcd';
   url = 'https://europe.api.riotgames.com/';
 
   constructor() { }
@@ -120,6 +120,7 @@ export class DataService {
             playerAugment5: participant.playerAugment5,
             playerAugment6: participant.playerAugment6,
             playerSubteamId: participant.playerSubteamId,
+            playerteamId: participant.teamId,
             summoner1Id: participant.summoner1Id, // spell id
             summoner2Id: participant.summoner2Id, // spell id
             timeCCingOthers: participant.timeCCingOthers,

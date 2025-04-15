@@ -21,7 +21,7 @@ index=0
 constructor(){}
 
 ngOnInit(): void {
-    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 1, this.region).subscribe(
+    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5, this.region).subscribe(
       (data:Game[]) =>{ 
         this.gameList = data
       }
@@ -33,7 +33,7 @@ ngOnInit(): void {
       console.log('PuuId changed:', changes['puuId'].currentValue);
       this.puuId = changes['puuId'].currentValue
       this.gameList = [] 
-      this.dataService.getListOfGamesByPuuid(this.puuId, 0, 1, this.region).subscribe(
+      this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5, this.region).subscribe(
         (data:Game[]) =>{ 
           this.gameList = data
         }

@@ -6,10 +6,11 @@ import { mergeMap, switchMap } from 'rxjs';
 import { Game } from '../interfaces/game';
 import { GameListComponent } from '../game-list/game-list.component';
 import { Rank } from '../interfaces/rank';
+import { LowerCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-summoner-details',
-  imports: [GameListComponent],
+  imports: [GameListComponent, LowerCasePipe],
   templateUrl: './summoner-details.component.html',
   styleUrl: './summoner-details.component.css'
 })

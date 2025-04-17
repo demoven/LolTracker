@@ -21,6 +21,8 @@ export class GameDetailsComponent implements OnInit {
   game:Game | null =null
   gameVersion!:string
   gameId!:string
+  selectedParticipant:Player | null=null
+
   router = inject(Router)
   route = inject(ActivatedRoute)
   ngOnInit(): void {
@@ -64,6 +66,9 @@ export class GameDetailsComponent implements OnInit {
     }
     else{
     return this.game?.participants?.filter(player => player.playerteamId === id) ?? [];}
+  }
+  selectParticipant(participant: Player): void {
+    this.selectedParticipant = participant;
   }
   
   

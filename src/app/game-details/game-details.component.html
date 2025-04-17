@@ -8,18 +8,56 @@
         @for(participant of getListPlayerByTeamId(teamId) ; track $index){
         <div class="player-card">
             <div>{{participant.championName}}</div>
-            <img [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`"
-                alt="Champion Icon" width="90px" height="90px">
+            <img class="clickable"
+                [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`"
+                alt="Champion Icon" width="90px" height="90px" (click)="selectParticipant(participant)">
             <div>
-                {{teamId}}
+                {{participant.kills}}/{{participant.deaths}}/{{participant.assists}}
             </div>
-            <div [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]">
+            <div class="clickable"
+                [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]">
                 {{participant.account.gameName}} </div>
 
         </div>
-    
+
         }
     </div>
-}
-</div>
     }
+
+
+</div>
+
+<div>
+    @if (selectedParticipant!==null) {
+    <img [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${selectedParticipant.championName}.png`"
+        alt="Champion Icon" width="90px" height="90px">
+    <div>
+        {{selectedParticipant.kills}}/{{selectedParticipant.deaths}}/{{selectedParticipant.assists}}
+    </div>
+
+    @if (selectedParticipant.doubleKills>0) {
+    <div class="kill-container">
+        double kill:{{selectedParticipant.doubleKills}}
+    </div>
+    }
+    @if (selectedParticipant.tripleKills>0) {
+    <div class="kill-container">
+        triple kill:{{selectedParticipant.tripleKills}}
+    </div>
+    }
+    @if (selectedParticipant.quadraKills>0) {
+    <div class="kill-container">
+        quadra kill:{{selectedParticipant.quadraKills}}
+    </div>
+    }
+    @if (selectedParticipant.pentaKills>0) {
+    <div class="kill-container">
+        penta kill:{{selectedParticipant.pentaKills}}
+    </div>
+    }
+
+    }
+
+</div>
+
+}

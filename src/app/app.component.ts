@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DataService } from './data.service';
 import { Account } from './interfaces/account';
-import { switchMap } from 'rxjs';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from "./search/search.component";
 import { FooterComponent } from "./footer/footer.component";

@@ -4,11 +4,11 @@ import { Game } from '../interfaces/game';
 import { DataService } from '../data.service';
 import { concatMap } from 'rxjs';
 import { Player } from '../interfaces/player';
-import { Team } from '../interfaces/team';
+import { ItemComponent } from "../item/item.component";
 
 @Component({
   selector: 'app-game-details',
-  imports: [RouterLink],
+  imports: [RouterLink, ItemComponent],
   templateUrl: './game-details.component.html',
   styleUrl: './game-details.component.css'
 })
@@ -22,6 +22,7 @@ export class GameDetailsComponent implements OnInit {
   gameVersion!:string
   gameId!:string
   selectedParticipant:Player | null=null
+
 
   router = inject(Router)
   route = inject(ActivatedRoute)
@@ -48,7 +49,6 @@ export class GameDetailsComponent implements OnInit {
       }
       if(this.game.gameMode !="CLASSIC" && this.game.gameMode !="ARAM"){
         this.isArena=true
-
       }
       
   }
@@ -67,6 +67,8 @@ export class GameDetailsComponent implements OnInit {
     else{
     return this.game?.participants?.filter(player => player.playerteamId === id) ?? [];}
   }
+
+  
   selectParticipant(participant: Player): void {
     this.selectedParticipant = participant;
   }

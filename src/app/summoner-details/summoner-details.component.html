@@ -3,7 +3,7 @@
 <div style="display: flex; align-items: center; gap: 10px;">
     <img [src]="'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/profileicon/' + account.profileIconId + '.png'"
         alt="Profile Icon" width="90" height="90">
-    <div style="display: flex; flex-direction: column;">
+    <div class="listGame">
         @if (account.rank) {
         @for (queue of account.rank; track $index) {
         <div class="rank {{queue.tier | lowercase}}">{{queue.tier}} {{queue.rank}} ({{queue.queueType}})</div> }

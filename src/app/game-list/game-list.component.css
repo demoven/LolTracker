@@ -1,0 +1,16 @@
+.gameList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ou 300px */
+    gap: 16px;
+    justify-items: center;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .game {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  

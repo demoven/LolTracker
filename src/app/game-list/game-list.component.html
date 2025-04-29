@@ -1,5 +1,8 @@
-@for (game of gameList; track $index) {
-    <div style="display: flex; align-items: center;" >
-        <app-game-preview [game]="game" [puuid]="puuId" ></app-game-preview>
-    </div>
-}
+<div class="gameList">
+    @for (game of gameList; track $index) {
+      <div class="game">
+        <app-game-preview [game]="game" [puuid]="puuId"></app-game-preview>
+      </div>
+    }
+  </div>
+  

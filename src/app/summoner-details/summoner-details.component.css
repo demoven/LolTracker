@@ -8,3 +8,11 @@
 .rank.master { color: #AD3ED8; }
 .rank.grandmaster { color: #E43D30; }
 .rank.challenger { color: #0096FF; }
+
+
+.listGame{
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+    padding: 5px;
+}

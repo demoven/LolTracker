@@ -1,59 +1,36 @@
 # LolTracker
+Groupe:
+- FERNANDO Théo
+- REY Léo
+- LAMBALLAIS Hugo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+## Contexte
+League of Legends est un jeu vidéo multijoueur en ligne dans lequel deux équipes de cinq joueurs s'affrontent dans le but de détruire la base principale de l'équipe adverse, appelée le "Nexus".
+Chaque joueur incarne un "champion", un personnage unique doté de compétences spécifiques, qu'il doit contrôler stratégiquement pour contribuer à la victoire de son équipe.
 
-## Development server
+Nous avons donc décidé pour ce projet d'utiliser l'API de Riot Games (créateur du jeu) pour récupérer des informations sur les comptes et les parties des joueurs. 
 
-To start a local development server, run:
+## Utilisation
 
-```bash
-ng serve
-```
+### Recherche de joueur 
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Par le biais de la barre de recherche, vous pouvez chercher des informations sur un joueur en particulier.
+Par exemple vous pouvez rechercher nos comptes:
 
-## Code scaffolding
+1. Sélectionner la région, ici EUW
+   
+2. Entrer un pseudo dans la barre de recherche:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+> ArtisticThunder#EUW
 
-```bash
-ng generate component component-name
-```
+> NekoMaid#NTR69
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+> MRleo#EUW
 
-```bash
-ng generate --help
-```
+3. Les informations du compte s'affichent ainsi qu'une liste de partie, vous pouvez maintenant sélectionner une partie
+   
+4. Vous êtes maintenant sur une vue détaillée d'une partie, il existe plusieurs modes de jeu (ex: Classique, ARAM, Cherry...)
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+5. Plusieurs options s'offrent à vous:
+- Cliquer sur une image pour avoir des statistiques détaillées sur le joueur en bas de la page (série d'éliminations)
+- Cliquer sur le nom d'un joueur pour accéder à ses informations ainsi que sa liste de partie

@@ -1,6 +1,6 @@
-<p>{{ summonerName }} and {{ tagLine }} and {{ region }}</p>
+<p>{{ summonerName }}#{{ tagLine }}</p>
 @if(account!==null && region !== ''){
-<div style="display: flex; align-items: center; gap: 10px;">
+<div class="infoPlayer">
     <img [src]="'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/profileicon/' + account.profileIconId + '.png'"
         alt="Profile Icon" width="90" height="90">
     <div class="listGame">

@@ -16,3 +16,17 @@
     margin: 2%;
     padding: 5px;
 }
+
+.infoPlayer {
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+}
+
+.Container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 2% 0;
+  }
+  

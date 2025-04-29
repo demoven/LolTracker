@@ -164,6 +164,7 @@ export class DataService {
             playerAugment6: participant.playerAugment6,
             playerSubteamId: participant.playerSubteamId,
             playerteamId: participant.teamId,
+            subteamPlacement: participant.subteamPlacement,
             summoner1Id: participant.summoner1Id, // spell id
             summoner2Id: participant.summoner2Id, // spell id
             timeCCingOthers: participant.timeCCingOthers,

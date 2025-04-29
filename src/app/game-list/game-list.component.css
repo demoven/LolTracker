@@ -24,3 +24,17 @@
     margin: 2% 0;
   }
   
+  .btn-details {
+    color: #111114;
+    border: 2px solid #B49EF1;
+    border-radius: 5px;
+    padding: 7px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.2s ease; 
+}
+
+.btn-details:hover {
+    background-color: #B49EF1; 
+    transform: scale(1.05); 
+}

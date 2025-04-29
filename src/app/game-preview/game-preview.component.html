@@ -1,5 +1,13 @@
-<div style="display: flex; align-items: center;">
-    <img [src]="'https://ddragon.leagueoflegends.com/cdn/'+parsedGameVersion+'/img/champion/' + championPlayedByPlayer + '.png'" alt="Champion Icon">
-    <p>{{championPlayedByPlayer}}   {{player?.kills}} /{{player?.deaths}} /{{player?.assists}}</p>
-    <button (click)="submit()">details</button>
+<div class="container">
+    <img [src]="'https://ddragon.leagueoflegends.com/cdn/'+parsedGameVersion+'/img/champion/' + championPlayedByPlayer + '.png'"
+        alt="Champion Icon">
+    <div class="info">
+        <p>Champion: {{championPlayedByPlayer}} </p>
+        <p>Kill/Death/Assist :
+            <span class="color-green">{{player?.kills}}</span> /
+            <span class="color-red"> {{player?.deaths}}</span> /
+            <span class="color-yellow">{{player?.assists}}</span>
+        </p>
+        <button class="btn-details" (click)="submit()">Details</button>
+    </div> 
 </div>

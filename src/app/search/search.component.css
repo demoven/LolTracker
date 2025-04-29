@@ -1,5 +1,5 @@
 .research {
-   background-color: rgb(255, 255, 255);
+   background-color: #F6F5F1;
    font-size: 1.25rem;
    margin-top: 5%;
 }
@@ -11,9 +11,25 @@
    text-align: center;
    width: 100%;
 }
-.search{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   text-align: center;
+
+.horizontal > input {
+   border: 1px solid #BDBCBA;
+   height: 26px;
+}
+
+.horizontal > button {
+   border-radius: 0 5px 5px 0;
+   border: 1px solid #BDBCBA;
+   background-color: #B49EF1;
+   color: #111114;
+   cursor: pointer;
+   height: 30px;
+}
+
+.horizontal > select {
+   border-radius: 5px 0 0 5px;
+   border: 1px solid #BDBCBA;
+   background-color: #F6F5F1;
+   color: #495057;
+   height: 30px;
 }

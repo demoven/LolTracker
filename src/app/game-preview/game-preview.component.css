@@ -1,0 +1,36 @@
+.container {
+    display: flex; 
+    align-items: center;
+    width: 100%;
+}
+
+.info {
+    margin-left: 3%;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.btn-details {
+    color: #111114;
+    border: 1px solid #BDBCBA;
+    border-radius: 5px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.2s ease; 
+}
+
+.btn-details:hover {
+    background-color: #BDBCBA; 
+    transform: scale(1.05); 
+}
+
+.color-red {
+    color: #F43C45;
+}
+.color-green {
+    color:#69CD56
+}
+.color-yellow {
+    color:#F7B551
+}

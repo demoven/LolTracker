@@ -2,7 +2,7 @@
 <div id="gameMode">
     {{game.gameMode}}
 </div>
-<div class="team-container">
+<div class="team-container" [class.arena]="game.gameMode === 'CHERRY'">
     @for(teamId of (getTeam()); track $index){
     <div class="team">
         @for(participant of getListPlayerByTeamId(teamId) ; track $index){

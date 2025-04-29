@@ -11,7 +11,7 @@ import { Rank } from './interfaces/rank';
 export class DataService {
 
   httpClient = inject(HttpClient);
-  apiKey = 'RGAPI-aede2fbf-b017-492d-b86f-1df17537a181';
+  apiKey = 'RGAPI-70c72b61-9522-41c0-95ca-e59eb1ec4dc9';
   url = 'https://europe.api.riotgames.com/';
 
   constructor() { }

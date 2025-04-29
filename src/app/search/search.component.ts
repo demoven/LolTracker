@@ -9,25 +9,24 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './search.component.css'
 })
 export class SearchComponent implements OnInit {
-searchForm!: FormGroup;
-summonerNameCtrl!: FormControl
-regionCtrl!: FormControl
-router = inject(Router)
-constructor(){
- 
-}
-ngOnInit(): void {
-  this.summonerNameCtrl = new FormControl('', {nonNullable:true});
-  this.regionCtrl = new FormControl('', {nonNullable:true})
+  searchForm!: FormGroup;
+  summonerNameCtrl!: FormControl
+  regionCtrl!: FormControl
+  router = inject(Router)
 
-  this.searchForm = new FormGroup({
-    summonerName:this.summonerNameCtrl,
-    region:this.regionCtrl
-  })
-  
-    
-}
-submit(){
-  this.router.navigate(['/summoner/',this.regionCtrl.value, this.summonerNameCtrl.value])
-}
+  constructor() {}
+
+  ngOnInit(): void {
+    this.summonerNameCtrl = new FormControl('', { nonNullable: true });
+    this.regionCtrl = new FormControl('', { nonNullable: true })
+    this.searchForm = new FormGroup({
+      summonerName: this.summonerNameCtrl,
+      region: this.regionCtrl
+    })
+
+
+  }
+  submit() {
+    this.router.navigate(['/summoner/', this.regionCtrl.value, this.summonerNameCtrl.value])
+  }
 }

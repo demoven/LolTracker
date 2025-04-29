@@ -1,7 +1,7 @@
 <form (ngSubmit)="submit()" [formGroup]="searchForm" class="horizontal">
-    <div class="search-title">recherche de joueur</div>
+    <div class="search-title">Recherche de joueur</div>
     <select [formControl]="regionCtrl" id="region" class="research" name="region" required>
-        <option value="" disabled selected>Server region</option>
+        <option value="" disabled selected>Région du serveur</option>
         <option value="BR1">Bresil</option>
         <option value="EUW1">Europe-Ouest</option>
         <option value="EUN1">Europe-Est</option>
@@ -19,7 +19,7 @@
         <option value="TW2">Taïwan</option>
         <option value="VN2">Vietnam</option>
     </select>
-    <input [formControl]="summonerNameCtrl" class="research" type="text" placeholder="Summoner's name" name="SummonerID"
+    <input [formControl]="summonerNameCtrl" class="research" type="text" placeholder="Pseudo#Tag" name="SummonerID"
         required>
-    <button class="research"> Rechercher</button>
+    <button class="research">Rechercher</button>
 </form>

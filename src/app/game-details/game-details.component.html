@@ -1,6 +1,6 @@
 @if(game!==null){
 <div id="gameMode">
-    {{game.gameMode}}
+    Mode de jeu : {{gameMode}}
 </div>
 <div class="team-container" [class.arena]="game.gameMode === 'CHERRY'">
     @for(teamId of (getTeam()); track $index){
@@ -32,7 +32,9 @@
                 <app-item item={{participant.item6}}></app-item>
             </div>
             <div>
-                {{participant.kills}}/{{participant.deaths}}/{{participant.assists}}
+                <span class="color-green">{{participant.kills}}</span> /
+                <span class="color-red"> {{participant.deaths}}</span> /
+                <span class="color-yellow"> {{participant.assists}}</span>
             </div>
             <div class="clickable"
                 [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]">

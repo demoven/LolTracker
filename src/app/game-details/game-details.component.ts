@@ -22,6 +22,7 @@ export class GameDetailsComponent implements OnInit {
   gameVersion!: string
   gameId!: string
   selectedParticipant: Player | null = null
+  gameMode!: string
 
 
   router = inject(Router)
@@ -48,8 +49,13 @@ export class GameDetailsComponent implements OnInit {
           this.listSubTeamId.push(player.playerSubteamId);
         }
       }
-      if (this.game.gameMode != "CLASSIC" && this.game.gameMode != "ARAM") {
+      if (this.game.gameMode == "CHERRY") {
+        this.gameMode = "ARENA"
         this.isArena = true
+      }
+      else {
+        this.gameMode = this.game.gameMode
+        this.isArena = false
       }
     }
     );

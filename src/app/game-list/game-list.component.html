@@ -1,8 +1,13 @@
-<div class="gameList">
-    @for (game of gameList; track $index) {
-      <div class="game">
-        <app-game-preview [game]="game" [puuid]="puuId"></app-game-preview>
-      </div>
-    }
-  </div>
-  
+<div class="gameListContainer">
+    <div class="gameList">
+        @for (game of gameList; track $index) {
+        <div class="game">
+            <app-game-preview [game]="game" [puuid]="puuId"></app-game-preview>
+        </div>
+        }
+    </div>
+</div>
+
+<div class="buttonContainer">
+    <button (click)="seeMore()">Voir plus</button>
+</div>

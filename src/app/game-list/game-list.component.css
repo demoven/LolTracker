@@ -1,16 +1,26 @@
 .gameList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ou 300px */
-    gap: 16px;
-    justify-items: center;
-    padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column; /* ou column pour une liste verticale */
+  gap: 16px;
+  flex-wrap: wrap; /* optionnel, pour retour à la ligne */
   }
   
   .game {
     width: 100%;
+  }
+  
+  .gameListContainer {
+    height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  align-items: center; 
+  }
+
+  .buttonContainer {
     display: flex;
     justify-content: center;
+    width: 100%;
+    margin: 2% 0;
   }
   

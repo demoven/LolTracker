@@ -15,11 +15,12 @@ export class GameListComponent implements OnInit, OnChanges {
   gameList: Game[] = []
   dataService = inject(DataService)
   index = 0
+  currentPage = 0
 
   constructor() { }
 
   ngOnInit(): void {
-    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5, this.region).subscribe(
+    this.dataService.getListOfGamesByPuuid(this.puuId, 0, 6, this.region).subscribe(
       (data: Game[]) => {
         this.gameList = data
       }
@@ -31,11 +32,20 @@ export class GameListComponent implements OnInit, OnChanges {
       console.log('PuuId changed:', changes['puuId'].currentValue);
       this.puuId = changes['puuId'].currentValue
       this.gameList = []
-      this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5, this.region).subscribe(
+      this.dataService.getListOfGamesByPuuid(this.puuId, 0, 6, this.region).subscribe(
         (data: Game[]) => {
           this.gameList = data
         }
       )
     }
+  }
+
+  seeMore() {
+    this.dataService.getListOfGamesByPuuid(this.puuId, this.index + 6, 6, this.region).subscribe(
+      (data: Game[]) => {
+        this.gameList.push(...data)
+        this.index += 5
+      }
+    )
   }
 }

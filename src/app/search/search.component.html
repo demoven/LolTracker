@@ -1,22 +1,23 @@
+<h2 class="search">recherche de joueur</h2>
 <form (ngSubmit)="submit()" [formGroup]="searchForm" class="horizontal">
     <select [formControl]="regionCtrl" id="region" class="research" name="region" required>
         <option value="" disabled selected>Server region</option>
-        <option value="BR1">BR</option>
-        <option value="EUW1">EUW</option>
-        <option value="EUN1">EUN</option>
-        <option value="JP1">JP</option>
-        <option value="KR">KR</option>
-        <option value="LA1">LA1</option>
-        <option value="LA2">LA2</option>
-        <option value="NA1">NA</option>
-        <option value="OC1">OC</option>
-        <option value="TR1">TR</option>
-        <option value="RU">RU</option>
-        <option value="PH2">PH</option>
-        <option value="SG2">LA1</option>
-        <option value="TH2">LA1</option>
-        <option value="TW2">LA1</option>
-        <option value="VN2">LA1</option>
+        <option value="BR1">Bresil</option>
+        <option value="EUW1">Europe-Ouest</option>
+        <option value="EUN1">Europe-Est</option>
+        <option value="JP1">Japon</option>
+        <option value="KR">Corée (du sud)</option>
+        <option value="LA1">Amerique Latine 1</option>
+        <option value="LA2">Amerique Latine 2</option>
+        <option value="NA1">Amerique du nord</option>
+        <option value="OC1">Océanie</option>
+        <option value="TR1">Turquie</option>
+        <option value="RU">Russie</option>
+        <option value="PH2">Philippines</option>
+        <option value="SG2">Singapour</option>
+        <option value="TH2">Thaïland</option>
+        <option value="TW2">Taïwan</option>
+        <option value="VN2">Vietnam</option>
     </select>
     <input [formControl]="summonerNameCtrl" class="research" type="text" placeholder="Summoner's name" name="SummonerID"
         required>

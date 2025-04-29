@@ -57,10 +57,48 @@ export class GameDetailsComponent implements OnInit {
 
   getTeam(): number[] {
     if (this.isArena) {
-      return this.listSubTeamId
+      // For arena mode, sort teams by subteamplacement
+      const teamPlacements = new Map<number, number>();
+      
+      // Get one player's subteamplacement from each team
+      this.game?.participants?.forEach(player => {
+        if (player.playerSubteamId !== undefined && player.subteamPlacement !== undefined) {
+          // Only set placement once per team (first occurrence)
+          if (!teamPlacements.has(player.playerSubteamId)) {
+            teamPlacements.set(player.playerSubteamId, player.subteamPlacement);
+          }
+        }
+      });
+      
+      // Sort by placement (ascending - lower numbers are better placements)
+      return [...this.listSubTeamId].sort((a, b) => {
+        const aPlacement = teamPlacements.get(a) ?? Number.MAX_VALUE;
+        const bPlacement = teamPlacements.get(b) ?? Number.MAX_VALUE;
+        return aPlacement - bPlacement;
+      });
+    } else {
+      // For regular games, sort teams by win status (winning teams first)
+      const teamResults = new Map<number, boolean>();
+      
+      // First, determine each team's win status
+      this.game?.participants?.forEach(player => {
+        if (player.playerteamId !== undefined && player.win !== undefined) {
+          teamResults.set(player.playerteamId, player.win);
+        }
+      });
+      
+      // Then sort teams by win status (winners first)
+      return [...this.listTeamId].sort((a, b) => {
+        const aWon = teamResults.get(a) || false;
+        const bWon = teamResults.get(b) || false;
+        
+        if (aWon && !bWon) return -1; // a comes first
+        if (!aWon && bWon) return 1;  // b comes first
+        return a - b; // If same win status, sort by teamId
+      });
     }
-    return this.listTeamId
   }
+
   getListPlayerByTeamId(id: number): Player[] {
     if (this.isArena) {
       return this.game?.participants?.filter(player => player.playerSubteamId === id) ?? [];

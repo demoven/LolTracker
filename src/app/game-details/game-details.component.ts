@@ -13,33 +13,34 @@ import { ItemComponent } from "../item/item.component";
   styleUrl: './game-details.component.css'
 })
 export class GameDetailsComponent implements OnInit {
-  isArena:boolean=false
-  listTeamId:number[]= []
-  listSubTeamId:number[]=[]
+  isArena: boolean = false
+  listTeamId: number[] = []
+  listSubTeamId: number[] = []
   dataService = inject(DataService)
-  region!:string
-  game:Game | null =null
-  gameVersion!:string
-  gameId!:string
-  selectedParticipant:Player | null=null
+  region!: string
+  game: Game | null = null
+  gameVersion!: string
+  gameId!: string
+  selectedParticipant: Player | null = null
 
 
   router = inject(Router)
   route = inject(ActivatedRoute)
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.gameId=params.get('gameId') ?? ''
-      this.gameVersion=params.get('gameVersion') ?? ''
+      this.gameId = params.get('gameId') ?? ''
+      this.gameVersion = params.get('gameVersion') ?? ''
     })
-    
+
     this.route.params.pipe(
       concatMap(params => {
-        const fullValue = params['gameId']; // "EUW1_7353440768"
-        this.region = fullValue.split('_')[0]; // Takes "EUW1"
+        const fullValue = params['gameId'];
+        this.region = fullValue.split('_')[0];
         return this.dataService.getDetailedMatchById(this.gameId, this.region);
       })
-    ).subscribe(data =>{this.game=data
-      for(var player of this.game.participants){
+    ).subscribe(data => {
+      this.game = data
+      for (let player of this.game.participants) {
         if (player.playerteamId !== undefined && !this.listTeamId.includes(player.playerteamId)) {
           this.listTeamId.push(player.playerteamId);
         }
@@ -47,32 +48,32 @@ export class GameDetailsComponent implements OnInit {
           this.listSubTeamId.push(player.playerSubteamId);
         }
       }
-      if(this.game.gameMode !="CLASSIC" && this.game.gameMode !="ARAM"){
-        this.isArena=true
+      if (this.game.gameMode != "CLASSIC" && this.game.gameMode != "ARAM") {
+        this.isArena = true
       }
-      
-  }
+    }
     );
   }
-  getTeam(): number[]{
-    if(this.isArena){
+
+  getTeam(): number[] {
+    if (this.isArena) {
       return this.listSubTeamId
     }
     return this.listTeamId
   }
   getListPlayerByTeamId(id: number): Player[] {
-    if(this.isArena){      
+    if (this.isArena) {
       return this.game?.participants?.filter(player => player.playerSubteamId === id) ?? [];
     }
-    else{
-    return this.game?.participants?.filter(player => player.playerteamId === id) ?? [];}
+    else {
+      return this.game?.participants?.filter(player => player.playerteamId === id) ?? [];
+    }
   }
 
-  
+
   selectParticipant(participant: Player): void {
     this.selectedParticipant = participant;
   }
-  
-  
+
 }
 

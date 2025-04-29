@@ -11,21 +11,21 @@
             <img class="clickable"
                 [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`"
                 alt="Champion Icon" width="90px" height="90px" (click)="selectParticipant(participant)">
-                <div class="items-container">
-                   <app-item item={{participant.item0}}></app-item>
-                   <app-item item={{participant.item1}}></app-item> 
-                   <app-item item={{participant.item2}}></app-item> 
-                   <app-item item={{participant.item3}}></app-item> 
-                   <app-item item={{participant.item4}}></app-item> 
-                   <app-item item={{participant.item5}}></app-item> 
-                   <app-item item={{participant.item6}}></app-item>  
-                </div>
+            <div class="items-container">
+                <app-item item={{participant.item0}}></app-item>
+                <app-item item={{participant.item1}}></app-item>
+                <app-item item={{participant.item2}}></app-item>
+                <app-item item={{participant.item3}}></app-item>
+                <app-item item={{participant.item4}}></app-item>
+                <app-item item={{participant.item5}}></app-item>
+                <app-item item={{participant.item6}}></app-item>
+            </div>
             <div>
                 {{participant.kills}}/{{participant.deaths}}/{{participant.assists}}
             </div>
             <div class="clickable"
                 [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]">
-                {{participant.account.gameName}} 
+                {{participant.account.gameName}}
             </div>
 
         </div>
@@ -33,8 +33,6 @@
         }
     </div>
     }
-
-
 </div>
 
 <div>
@@ -66,21 +64,17 @@
     </div>
     }
     <div class="bar-chart">
-        <!-- todo graph -->
-        @if(game!==null){ 
-            @for(teamId of (getTeam()); track $index){
-                @for(participant of getListPlayerByTeamId(teamId) ; track $index){
-                    @if (selectParticipant.name==participant.account.gameName) {
-                        <div class="bar" style="width: 80%"><span>HTML (80%)</span></div>
-                    }
-                }
-            }
+        @if(game!==null){
+        @for(teamId of (getTeam()); track $index){
+        @for(participant of getListPlayerByTeamId(teamId) ; track $index){
+        @if (selectParticipant.name==participant.account.gameName) {
+        <div class="bar" style="width: 80%"><span>HTML (80%)</span></div>
         }
-      </div>
-      
-      
+        }
+        }
+        }
+    </div>
     }
 
 </div>
-
 }

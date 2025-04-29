@@ -1,12 +1,13 @@
-.research{
-    background-color: rgb(255, 255, 255);
-    font-size: 1.25rem;
-    margin-top: 5%;
- }
- .horizontal{
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    text-align: center;
-    width: 100%;
- }
+.research {
+   background-color: rgb(255, 255, 255);
+   font-size: 1.25rem;
+   margin-top: 5%;
+}
+
+.horizontal {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   width: 100%;
+}

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DataService } from './data.service';
 import { Account } from './interfaces/account';
@@ -12,12 +12,9 @@ import { FooterComponent } from "./footer/footer.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   title = 'LolTracker';
   dataService = inject(DataService);
   account!: Account;
-
-  ngOnInit(): void {
-  }
 }

@@ -2,8 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Account } from '../interfaces/account';
 import { DataService } from '../data.service';
-import { mergeMap, switchMap } from 'rxjs';
-import { Game } from '../interfaces/game';
+import { mergeMap } from 'rxjs';
 import { GameListComponent } from '../game-list/game-list.component';
 import { Rank } from '../interfaces/rank';
 import { LowerCasePipe } from '@angular/common';
@@ -22,18 +21,19 @@ export class SummonerDetailsComponent implements OnInit {
   route = inject(ActivatedRoute)
   dataService = inject(DataService);
   account: Account | null = null;
-  rank!:Rank
+  rank!: Rank
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const fullSummonerName = params.get('summonerName') ?? '';
       this.region = params.get('region') ?? ''
+      // Sépare le nom d'invocateur et le tagLine
       const match = RegExp(/^(.*)#(\w{3,5})$/).exec(fullSummonerName);
       if (match) {
-        this.summonerName = match[1]; 
-        this.tagLine = match[2]; 
+        this.summonerName = match[1];
+        this.tagLine = match[2];
       } else {
-        this.summonerName = fullSummonerName; 
+        this.summonerName = fullSummonerName;
         this.tagLine = '';
       }
 
@@ -43,11 +43,11 @@ export class SummonerDetailsComponent implements OnInit {
           return this.dataService.getRank(this.account.puuid, this.region)
         })
       )
-      .subscribe((rank: Rank[]) => {
-        if(this.account!==null)
-        this.account.rank = rank
-      });
-      
+        .subscribe((rank: Rank[]) => {
+          if (this.account !== null)
+            this.account.rank = rank
+        });
+
     });
   }
 }

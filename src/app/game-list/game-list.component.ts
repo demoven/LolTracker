@@ -1,9 +1,7 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges, } from '@angular/core';
 import { Game } from '../interfaces/game';
 import { DataService } from '../data.service';
-import { Observable } from 'rxjs';
 import { GamePreviewComponent } from '../game-preview/game-preview.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-list',
@@ -12,29 +10,29 @@ import { Router } from '@angular/router';
   styleUrl: './game-list.component.css'
 })
 export class GameListComponent implements OnInit, OnChanges {
-@Input() puuId:string =''
-@Input() region:string =''
-gameList:Game[] = []
-dataService = inject(DataService)
-index=0
+  @Input() puuId: string = ''
+  @Input() region: string = ''
+  gameList: Game[] = []
+  dataService = inject(DataService)
+  index = 0
 
-constructor(){}
+  constructor() { }
 
-ngOnInit(): void {
+  ngOnInit(): void {
     this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5, this.region).subscribe(
-      (data:Game[]) =>{ 
+      (data: Game[]) => {
         this.gameList = data
       }
     )
-}
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['puuId']){
+    if (changes['puuId']) {
       console.log('PuuId changed:', changes['puuId'].currentValue);
       this.puuId = changes['puuId'].currentValue
-      this.gameList = [] 
+      this.gameList = []
       this.dataService.getListOfGamesByPuuid(this.puuId, 0, 5, this.region).subscribe(
-        (data:Game[]) =>{ 
+        (data: Game[]) => {
           this.gameList = data
         }
       )

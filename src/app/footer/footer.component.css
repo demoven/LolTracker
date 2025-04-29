@@ -1,0 +1,65 @@
+.bg-color-1 {
+    background-color: rgb(143, 150, 245);
+}
+
+/* Styles généraux du footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+
+/* Conteneur interne du footer */
+.in-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Texte du footer */
+.white-font {
+    color: white;
+    font-size: 12px;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Icônes des réseaux sociaux */
+nav {
+    display: flex;
+    gap: 10px;
+}
+
+nav a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+nav a img:hover {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .in-footer {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .white-font {
+        text-align: left;
+    }
+}
+

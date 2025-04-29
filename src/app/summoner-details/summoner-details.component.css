@@ -14,13 +14,14 @@
     display: flex;
     flex-direction: column;
     margin: 2%;
-    padding: 5px;
 }
 
 .infoPlayer {
     display: flex; 
     align-items: center; 
-    gap: 10px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
 }
 
 .Container {
@@ -29,4 +30,7 @@
     width: 100%;
     margin: 2% 0;
   }
+.icon{
+    padding-top: 10px;
+}
   

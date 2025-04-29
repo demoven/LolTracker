@@ -1,5 +1,5 @@
-<h2 class="search">recherche de joueur</h2>
 <form (ngSubmit)="submit()" [formGroup]="searchForm" class="horizontal">
+    <div class="search-title">recherche de joueur</div>
     <select [formControl]="regionCtrl" id="region" class="research" name="region" required>
         <option value="" disabled selected>Server region</option>
         <option value="BR1">Bresil</option>

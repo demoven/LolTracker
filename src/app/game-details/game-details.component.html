@@ -7,7 +7,17 @@
     <div class="team">
         @for(participant of getListPlayerByTeamId(teamId) ; track $index){
         <div class="player-card">
+            @if(game.gameMode==='CHERRY'){
             classement : {{participant.subteamPlacement}}
+            }
+            @else{
+                @if(participant.win){
+                    Gagné
+                }
+                @else {
+                    Perdu
+                }
+            }
             <div>{{participant.championName}}</div>
             <img class="clickable"
                 [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`"

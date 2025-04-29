@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { concatMap, from, map, mergeMap, Observable, tap, toArray } from 'rxjs';
+import { concatMap, from, map, mergeMap, Observable, toArray } from 'rxjs';
 import { Account } from './interfaces/account';
 import { Game } from './interfaces/game';
 import { Rank } from './interfaces/rank';
@@ -12,23 +12,41 @@ export class DataService {
 
   httpClient = inject(HttpClient);
   apiKey = 'RGAPI-70c72b61-9522-41c0-95ca-e59eb1ec4dc9';
+  // Url de base pour l'API de Riot Games
   url = 'https://europe.api.riotgames.com/';
 
   constructor() { }
 
+  /**
+   * Le nom d'utilisateur d'un joueur est composé de deux parties : le nom d'utilisateur et le tag. 
+   * Par exemple, si votre nom d'utilisateur est "Player" et que votre tag est "1234", votre nom d'utilisateur complet sera "Player#1234".
+   * 
+   * Ici on récupère d'abord le PUUID du joueur à partir de son nom d'utilisateur et de son tag, 
+   * puis on utilise ce PUUID pour récupérer les détails du joueur.
+   * 
+   * @param gameName - Le nom d'utilisateur du joueur dans le jeu.
+   * @param tagLine - Le tag du joueur dans le jeu.
+   * @param region - La région dans laquelle le joueur joue (e.g., "na1", "euw1").
+   * @returns - Un objet Account contenant les détails du joueur, y compris son PUUID, son icône de profil et son niveau de joueur.
+   */
   getAccountByGameNameAndTagLine(gameName: string, tagLine: string, region: string): Observable<Account> {
+    // Requete pour récupérer le PUUID du joueur à partir de son nom d'utilisateur et de son tag
     return this.httpClient.get<any>(`${this.getAPIUrl(region)}riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${this.apiKey}`)
       .pipe(
         mergeMap((response: any) => {
           const puuid = response.puuid;
+          // Requete pour récupérer les détails du joueur à partir de son PUUID
           return this.httpClient.get<any>(`https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${this.apiKey}`)
             .pipe(
               map((el: any) => {
                 return {
                   gameName: response.gameName,
                   tagLine: response.tagLine,
+                  // puuid est l'identifiant unique du joueur dans le jeu
                   puuid: el.puuid,
+                  // profileIconId est l'identifiant de l'icône de profil du joueur
                   profileIconId: el.profileIconId,
+                  // summonerLevel est le niveau du joueur dans le jeu
                   summonerLevel: el.summonerLevel   
                 };
               })
@@ -37,6 +55,16 @@ export class DataService {
       );
   }
 
+  /**
+   * Récupérer une liste de parties jouées par un joueur à partir de son PUUID
+   *
+   *
+   * @param puuid - Identifiant unique du joueur dans le jeu.
+   * @param start - L'index de départ pour récupérer les parties (0 pour la première partie).
+   * @param count - Le nombre de parties à récupérer.
+   * @param region - La région dans laquelle le joueur joue (e.g., "na1", "euw1").
+   * @returns - Un tableau d'objets Game contenant les détails de chaque partie.
+   */
   getListOfGamesByPuuid(puuid: string, start: number, count: number, region:string): Observable<Game[]> {
     return this.httpClient.get<any[]>(`${this.getAPIUrl(region)}lol/match/v5/matches/by-puuid/${puuid}/ids?start=${start}&count=${count}&api_key=${this.apiKey}`)
       .pipe(
@@ -46,12 +74,19 @@ export class DataService {
       );
   }
 
+  /**
+   * Récupérer le rang d'un joueur à partir de son PUUID, c'est-à-dire son classement par rapport aux autres joueur
+   * 
+   * @param puuid - Identifiant unique du joueur dans le jeu.
+   * @param region - La région dans laquelle le joueur joue (e.g., "na1", "euw1").
+   * @returns - Un tableau d'objets Rank contenant les détails du rang du joueur
+   */
   getRank(puuid: string, region: string): Observable<Rank[]> {
     return this.httpClient.get<Rank[]>(`https://${region}.api.riotgames.com/lol/league/v4/entries/by-puuid/${puuid}?api_key=${this.apiKey}`).pipe(
       map((response: any) => {
         return response.map((rank: any) => {
           return {
-            queueType: rank.queueType,
+            queueType: rank.queueType, 
             tier: rank.tier,
             rank: rank.rank,
             leaguePoints: rank.leaguePoints,
@@ -67,6 +102,14 @@ export class DataService {
     )
   }
 
+  /**
+   * Récupérer les détails d'une partie à partir de son ID
+
+   * 
+   * @param matchId - Identifiant unique de la partie.
+   * @param region - La région dans laquelle la partie a été jouée (e.g., "na1", "euw1").
+   * @returns - Un objet Game contenant les détails de la partie, y compris les participants et les équipes.
+   */
   getDetailedMatchById(matchId: string, region:string): Observable<Game> {
     return this.httpClient.get<any>(`${this.getAPIUrl(region)}lol/match/v5/matches/${matchId}?api_key=${this.apiKey}`).pipe(
       map((response: any) => {
@@ -153,12 +196,13 @@ export class DataService {
             inhibitor: team.objectives.inhibitor,
             riftHerald: team.objectives.riftHerald,
             tower: team.objectives.tower,
-            featEpicMonster: team.feats.EPIC_MONSTER_KILL.featState, // 
+            featEpicMonster: team.feats.EPIC_MONSTER_KILL.featState, 
             featFirstBlood: team.feats.FIRST_BLOOD.featState, // 3 kills 
             featFirstTower: team.feats.FIRST_TURRET.featState // First tower kill
           };
         });
 
+        // On récupère les deux équipes sachant que l'équipe 1 possède l'id 100 et l'équipe 2 possède l'id 200
         const team1 = teams.find((team: any) => team.teamId === 100);
         const team2 = teams.find((team: any) => team.teamId === 200);
         return {
@@ -178,6 +222,12 @@ export class DataService {
 
   }
 
+  /**
+   * Cette méthode permet de récupérer l'URL de l'API en fonction de la région du joueur.
+   * 
+   * @param region - La région dans laquelle le joueur joue (e.g., "na1", "euw1").
+   * @returns - L'URL de l'API pour la région spécifiée.
+   */
   getAPIUrl(region: string): string {
     let selectedRegion = '';
     switch (region.toLowerCase()) {

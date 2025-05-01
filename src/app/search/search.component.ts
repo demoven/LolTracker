@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   summonerNameCtrl!: FormControl
   regionCtrl!: FormControl
   router = inject(Router)
+  errorMessage: string = ''
 
   constructor() { }
 
@@ -26,6 +27,19 @@ export class SearchComponent implements OnInit {
   }
   
   submit() {
+    if (this.summonerNameCtrl.value === '' || this.regionCtrl.value === '') {
+      this.errorMessage = 'Remplir tous les champs'
+      return
+    }
+    
+    const regex = /^[^#\s]+#[a-zA-Z0-9]{1,5}$/;
+
+    if (!regex.test(this.summonerNameCtrl.value)) {
+      this.errorMessage = 'Le pseudo doit être au format nom#tag';
+      return;
+    }
+    
+    this.errorMessage = ''
     this.router.navigate(['/summoner/', this.regionCtrl.value, this.summonerNameCtrl.value])
   }
 }

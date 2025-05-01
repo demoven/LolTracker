@@ -1,14 +1,21 @@
-
+<div class="error">{{errorMessage}}</div>
 @if(account!==null && region !== ''){
 <div class="infoPlayer">
-    <img class="icon" [src]="'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/profileicon/' + account.profileIconId + '.png'"
+    <img class="icon"
+        [src]="'https://ddragon.leagueoflegends.com/cdn/15.6.1/img/profileicon/' + account.profileIconId + '.png'"
         alt="Profile Icon" width="90" height="90">
     <div>Pseudo : {{ summonerName }}#{{ tagLine }}</div>
     <div class="listGame">
         @if (account.rank) {
+            <h3>Classement :</h3>
+        @if (account.rank.length > 0) {
         @for (queue of account.rank; track $index) {
         <div class="rank {{queue.tier | lowercase}}">{{queue.tier}} {{queue.rank}} ({{queue.queueType}})</div> }
         }
+         @else {
+        <div class="rank">Non classé</div>
+        }
+    }
     </div>
 </div>
 <app-game-list [puuId]="account.puuid" [region]="region"></app-game-list>

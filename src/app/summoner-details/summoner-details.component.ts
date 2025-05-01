@@ -22,6 +22,7 @@ export class SummonerDetailsComponent implements OnInit {
   dataService = inject(DataService);
   account: Account | null = null;
   rank!: Rank
+  errorMessage: string = ''
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -41,12 +42,18 @@ export class SummonerDetailsComponent implements OnInit {
         mergeMap((response: Account) => {
           this.account = response;
           return this.dataService.getRank(this.account.puuid, this.region)
-        })
-      )
-        .subscribe((rank: Rank[]) => {
-          if (this.account !== null)
-            this.account.rank = rank
-        });
+        }
+        )
+      ).subscribe({
+        next: (rank: Rank[]) => {
+        if (this.account !== null)
+          this.account.rank = rank
+        this.errorMessage = ''
+      },
+        error: () => {
+          this.errorMessage = 'Aucun compte trouvé'
+        }
+    });
 
     });
   }

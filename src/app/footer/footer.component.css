@@ -40,6 +40,7 @@ nav {
     gap: 10px;
     justify-content: center;
     align-items: center;
+    margin-top: 15px;
 }
 
 nav a img {
@@ -51,4 +52,12 @@ nav a img {
 nav a img:hover {
     transform: scale(1.2);
     filter: brightness(1.2);
+}
+
+.about{
+    color:white;
+}
+
+.about:hover{
+    color: #B49EF1;
 }

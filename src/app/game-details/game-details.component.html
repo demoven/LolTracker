@@ -8,17 +8,17 @@
         @for(participant of getListPlayerByTeamId(teamId) ; track $index){
         <div class="player-card">
             @if(game.gameMode==='CHERRY'){
-            classement : {{participant.subteamPlacement}}
+            Classement : {{participant.subteamPlacement}}
             }
             @else{
                 @if(participant.win){
-                    Gagné
+                    Victoire
                 }
                 @else {
-                    Perdu
+                    Défaite
                 }
             }
-            <div>{{participant.championName}}</div>
+            <div>Champion : {{participant.championName}}</div>
             <img class="clickable"
                 [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${participant.championName}.png`"
                 alt="Champion Icon" width="90px" height="90px" (click)="selectParticipant(participant)">
@@ -32,13 +32,14 @@
                 <app-item item={{participant.item6}}></app-item>
             </div>
             <div>
+                K/D/A : 
                 <span class="color-green">{{participant.kills}}</span> /
                 <span class="color-red"> {{participant.deaths}}</span> /
                 <span class="color-yellow"> {{participant.assists}}</span>
             </div>
             <div class="clickable"
                 [routerLink]="['/summoner',region,participant.account.gameName+'#'+participant.account.tagLine]">
-                {{participant.account.gameName}}
+                Joueur : {{participant.account.gameName}}
             </div>
 
         </div>
@@ -81,7 +82,7 @@
         @for(teamId of (getTeam()); track $index){
         @for(participant of getListPlayerByTeamId(teamId) ; track $index){
         @if (selectParticipant.name==participant.account.gameName) {
-        <div class="bar" style="width: 80%"><span>HTML (80%)</span></div>
+        <div class="bar"><span>HTML (80%)</span></div>
         }
         }
         }

@@ -38,6 +38,10 @@
   margin-top: 5px;
 }
 
+.player-card img {
+  margin: 15px 0;
+}
+
 /* Add this specific rule for Cherry game mode */
 .team-container.arena .player-card {
   width: 90%;
@@ -72,6 +76,7 @@
   padding: 2px 10px;
   border-radius: 4px;
   white-space: nowrap;
+  width: 80%;
 }
 
 .bar::before {

@@ -3,7 +3,22 @@
     width: 100%;
     font-size: 2rem;
     display: flex;
-    justify-content: center;
     align-items: center;
-    text-align: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.home-icon {
+    font-size: 2rem;
+}
+
+.home-icon:hover {
+    transform: scale(1.1);
+}
+
+.header-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }

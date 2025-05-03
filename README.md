@@ -41,3 +41,6 @@ Par exemple vous pouvez rechercher nos comptes:
 5. Plusieurs options s'offrent à vous:
 - Cliquer sur une image pour avoir des statistiques détaillées sur le joueur en bas de la page (série d'éliminations)
 - Cliquer sur le nom d'un joueur pour accéder à ses informations ainsi que sa liste de partie
+
+### About us
+Le lien vers la page "about us" se situe dans le footer

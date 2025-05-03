@@ -4,6 +4,13 @@ Groupe:
 - REY Léo
 - LAMBALLAIS Hugo
 
+## ⚠️ Avant de commencer ⚠️
+Les clés d'API sur RIOT Developer Portal doivent être régénérées toutes les 24h.
+Nous allons donc faire un push tous les jours jusqu'à la correction pour que vous puissiez avoir une clé fonctionnelle.
+Cependant, lorsque vous allez cloner notre repo, prenez en compte que la correction doit être effectuée dans la foulée.
+
+
+
 ## Contexte
 League of Legends est un jeu vidéo multijoueur en ligne dans lequel deux équipes de cinq joueurs s'affrontent dans le but de détruire la base principale de l'équipe adverse, appelée le "Nexus".
 Chaque joueur incarne un "champion", un personnage unique doté de compétences spécifiques, qu'il doit contrôler stratégiquement pour contribuer à la victoire de son équipe.

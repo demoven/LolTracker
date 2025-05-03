@@ -27,6 +27,7 @@ export class GameListComponent implements OnInit, OnChanges {
     )
   }
 
+  // OnChanges est appelé à chaque fois que le puuId change pour mettre à jour la liste des parties
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['puuId']) {
       console.log('PuuId changed:', changes['puuId'].currentValue);
@@ -40,6 +41,7 @@ export class GameListComponent implements OnInit, OnChanges {
     }
   }
 
+  //Charger plus de parties lorsque l'utilisateur clique sur le bouton "Voir plus"
   seeMore() {
     this.dataService.getListOfGamesByPuuid(this.puuId, this.index + 5, 5, this.region).subscribe(
       (data: Game[]) => {

@@ -55,8 +55,8 @@
 }
 
 .kill-container {
-  background-color: chocolate;
-  border: 1px solid red;
+  background-color: #E6E0F1;
+  padding : 7px;
   border-radius: 10px;
   margin: 3px 0px;
 }
@@ -148,4 +148,13 @@ app-item img {
 }
 .color-yellow {
   color:#F7B551
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
 }

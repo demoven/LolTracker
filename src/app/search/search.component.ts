@@ -34,6 +34,7 @@ export class SearchComponent implements OnInit {
     
     const regex = /^[^#\s]+#[a-zA-Z0-9]{1,5}$/;
 
+    // Vérifier si le pseudo est au format nom#tag
     if (!regex.test(this.summonerNameCtrl.value)) {
       this.errorMessage = 'Le pseudo doit être au format nom#tag';
       return;

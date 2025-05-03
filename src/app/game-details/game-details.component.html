@@ -49,7 +49,7 @@
     }
 </div>
 
-<div>
+<div class="details-container">
     @if (selectedParticipant!==null) {
     <img [src]="`https://ddragon.leagueoflegends.com/cdn/${gameVersion}/img/champion/${selectedParticipant.championName}.png`"
         alt="Champion Icon" width="90px" height="90px">
@@ -59,22 +59,22 @@
 
     @if (selectedParticipant.doubleKills>0) {
     <div class="kill-container">
-        double kill:{{selectedParticipant.doubleKills}}
+        Double kill:{{selectedParticipant.doubleKills}}
     </div>
     }
     @if (selectedParticipant.tripleKills>0) {
     <div class="kill-container">
-        triple kill:{{selectedParticipant.tripleKills}}
+        Triple kill:{{selectedParticipant.tripleKills}}
     </div>
     }
     @if (selectedParticipant.quadraKills>0) {
     <div class="kill-container">
-        quadra kill:{{selectedParticipant.quadraKills}}
+        Quadra kill:{{selectedParticipant.quadraKills}}
     </div>
     }
     @if (selectedParticipant.pentaKills>0) {
     <div class="kill-container">
-        penta kill:{{selectedParticipant.pentaKills}}
+        Penta kill:{{selectedParticipant.pentaKills}}
     </div>
     }
     <div class="bar-chart">

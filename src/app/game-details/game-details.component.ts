@@ -13,6 +13,7 @@ import { ItemComponent } from "../item/item.component";
   styleUrl: './game-details.component.css'
 })
 export class GameDetailsComponent implements OnInit {
+  // Arena est un mode de jeu spécifique qui a des règles différentes donc un affichage différent pour les équipes
   isArena: boolean = false
   listTeamId: number[] = []
   listSubTeamId: number[] = []
@@ -27,21 +28,24 @@ export class GameDetailsComponent implements OnInit {
 
   router = inject(Router)
   route = inject(ActivatedRoute)
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.gameId = params.get('gameId') ?? ''
-      this.gameVersion = params.get('gameVersion') ?? ''
-    })
 
+  ngOnInit(): void {
+
+    // Récupérer les paramètres de la route
     this.route.params.pipe(
       concatMap(params => {
-        const fullValue = params['gameId'];
-        this.region = fullValue.split('_')[0];
+        this.gameId = params['gameId'];
+        this.gameVersion = params['gameVersion'];
+        this.region = this.gameId.split('_')[0];
+        // Récupérer les détails de la partie
         return this.dataService.getDetailedMatchById(this.gameId, this.region);
       })
     ).subscribe(data => {
+      // Récupérer les données de la partie
       this.game = data
+
       for (let player of this.game.participants) {
+        //
         if (player.playerteamId !== undefined && !this.listTeamId.includes(player.playerteamId)) {
           this.listTeamId.push(player.playerteamId);
         }
@@ -49,6 +53,7 @@ export class GameDetailsComponent implements OnInit {
           this.listSubTeamId.push(player.playerSubteamId);
         }
       }
+      // Mode de jeu spécifique pour Arena
       if (this.game.gameMode == "CHERRY") {
         this.gameMode = "ARENA"
         this.isArena = true
@@ -63,44 +68,40 @@ export class GameDetailsComponent implements OnInit {
 
   getTeam(): number[] {
     if (this.isArena) {
-      // For arena mode, sort teams by subteamplacement
+      // Pour l'Arena, trier les équipes par placement (meilleur placement en premier)
       const teamPlacements = new Map<number, number>();
       
-      // Get one player's subteamplacement from each team
       this.game?.participants?.forEach(player => {
         if (player.playerSubteamId !== undefined && player.subteamPlacement !== undefined) {
-          // Only set placement once per team (first occurrence)
+          
           if (!teamPlacements.has(player.playerSubteamId)) {
             teamPlacements.set(player.playerSubteamId, player.subteamPlacement);
           }
         }
       });
       
-      // Sort by placement (ascending - lower numbers are better placements)
       return [...this.listSubTeamId].sort((a, b) => {
         const aPlacement = teamPlacements.get(a) ?? Number.MAX_VALUE;
         const bPlacement = teamPlacements.get(b) ?? Number.MAX_VALUE;
         return aPlacement - bPlacement;
       });
     } else {
-      // For regular games, sort teams by win status (winning teams first)
+      // Pour les autres modes de jeu, trier les équipes par statut de victoire
       const teamResults = new Map<number, boolean>();
       
-      // First, determine each team's win status
       this.game?.participants?.forEach(player => {
         if (player.playerteamId !== undefined && player.win !== undefined) {
           teamResults.set(player.playerteamId, player.win);
         }
       });
       
-      // Then sort teams by win status (winners first)
       return [...this.listTeamId].sort((a, b) => {
         const aWon = teamResults.get(a) || false;
         const bWon = teamResults.get(b) || false;
         
-        if (aWon && !bWon) return -1; // a comes first
-        if (!aWon && bWon) return 1;  // b comes first
-        return a - b; // If same win status, sort by teamId
+        if (aWon && !bWon) return -1; 
+        if (!aWon && bWon) return 1;  
+        return a - b; 
       });
     }
   }

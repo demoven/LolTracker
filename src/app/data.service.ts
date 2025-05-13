@@ -11,7 +11,7 @@ import { Rank } from './interfaces/rank';
 export class DataService {
 
   httpClient = inject(HttpClient);
-  apiKey = 'RGAPI-9d6efa0f-bb51-41bb-980c-e167b3eeccc1';
+  apiKey = 'RGAPI-f4f67a70-3595-4d12-93cb-6f8b610805fc';
   // Url de base pour l'API de Riot Games
   url = 'https://europe.api.riotgames.com/';
 
